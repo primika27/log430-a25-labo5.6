@@ -9,6 +9,7 @@
     {
       "endpoint": "/payments-api/payments",
       "method": "POST", 
+      "input_headers": ["*"],
       "backend": [
         {
           "url_pattern": "/payments",
@@ -20,6 +21,7 @@
     {
       "endpoint": "/payments-api/payments/{payment_id}",
       "method": "POST", 
+      "input_headers": ["*"],
       "backend": [
         {
           "url_pattern": "/payments/process/{payment_id}",
