@@ -28,5 +28,22 @@
         }
       ]
     }
-  ]
+  ],
+  "port": 8080,
+  "extra_config": {
+    "telemetry/opentelemetry": {
+      "service_name": "krakend-gateway",
+      "service_version": "1.0.0",
+      "exporters": {
+       "otlp": [
+         {
+           "name": "jaeger",
+           "host": "jaeger",
+           "port": 4317,
+           "use_http": false
+         }
+       ]
+     }
+   }
+ }
 }
