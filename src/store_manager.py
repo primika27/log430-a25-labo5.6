@@ -3,7 +3,9 @@ Order manager application
 SPDX - License - Identifier: LGPL - 3.0 - or -later
 Auteurs : Gabriel C. Ullmann, Fabio Petrillo, 2025
 """
+
 import threading
+from turtle import tracer
 from graphene import Schema
 from stocks.schemas.query import Query
 from flask import Flask, request, jsonify
@@ -32,60 +34,66 @@ def health():
 # Write routes (Commands)
 @app.post('/orders')
 def post_orders():
-    """Create a new order based on information on request body"""
-    counter_orders.inc()
-    return create_order(request)
+    with tracer.start_as_current_span("post_orders"):
+    
+    #counter_orders.inc()
+     return create_order(request)
 
 @app.delete('/orders/<int:order_id>')
 def delete_orders_id(order_id):
-    """Delete an order with a given order_id"""
-    return remove_order(order_id)
+    with tracer.start_as_current_span("delete_orders_id"):
+        return remove_order(order_id)
 
 @app.post('/products')
 def post_products():
-    """Create a new product based on information on request body"""
-    return create_product(request)
+    with tracer.start_as_current_span("post_products"):
+        return create_product(request)
 
 @app.delete('/products/<int:product_id>')
 def delete_products_id(product_id):
-    """Delete a product with a given product_id"""
-    return remove_product(product_id)
+    with tracer.start_as_current_span("delete_products_id"):
+        return remove_product(product_id)
 
 @app.post('/users')
 def post_users():
-    """Create a new user based on information on request body"""
-    return create_user(request)
+    with tracer.start_as_current_span("post_users"):
+        return create_user(request)
 
 @app.delete('/users/<int:user_id>')
 def delete_users_id(user_id):
-    """Delete a user with a given user_id"""
-    return remove_user(user_id)
+    with tracer.start_as_current_span("delete_users_id"):
+        return remove_user(user_id)
 
 @app.post('/stocks')
 def post_stocks():
     """Set product stock based on information on request body"""
-    return set_stock(request)
+    with tracer.start_as_current_span("post_stocks"):
+     return set_stock(request)
 
 # Read routes (Queries) 
 @app.get('/orders/<int:order_id>')
 def get_order_id(order_id):
     """Get order with a given order_id"""
-    return get_order(order_id)
+    with tracer.start_as_current_span("get_order_id"):
+     return get_order(order_id)
 
 @app.get('/products/<int:product_id>')
 def get_product_id(product_id):
     """Get product with a given product_id"""
-    return get_product(product_id)
+    with tracer.start_as_current_span("get_product_id"):
+        return get_product(product_id)
 
 @app.get('/users/<int:user_id>')
 def get_user_id(user_id):
     """Get user with a given user_id"""
-    return get_user(user_id)
+    with tracer.start_as_current_span("get_user_id"):
+        return get_user(user_id)
 
 @app.get('/stocks/<int:product_id>')
 def get_stocks(product_id):
     """Get product stocks by product_id"""
-    return get_stock(product_id)
+    with tracer.start_as_current_span("get_stocks"):
+        return get_stock(product_id)
 
 @app.get('/orders/reports/highest-spenders')
 def get_orders_highest_spending_users():
